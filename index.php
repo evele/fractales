@@ -5,20 +5,36 @@
 <head>
 <title>Titulo de la web</title>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="estilos.css" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="alternate" title="Pozolería RSS" type="application/rss+xml" href="/feed.rss" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
  
 <body>
+    
+    <div class="container">
+      <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Julia Mandelbrot</a></li>
+      <li role="presentation"><a href="practico-2.php">Pr&aacute;ctico 2</a></li>
+      <li role="presentation"><a href="practico-3.php">Pr&aacute;ctico 3</a></li>
+    </ul>
     <header>
        <h1>Mi sitio web</h1>
        <p>Mi sitio web creado en html5</p>
     </header>
     <section>
        <article>
-           <h2>Titilo de contenido<h2>
-           <p> Contenido (ademas de imagenes, citas, videos etc.) </p>
+            <h2>Titilo de contenido<h2>
+            <p> Contenido (ademas de imagenes, citas, videos etc.) </p>
+            <svg width="100" height="100">
+              <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+            </svg>
        </article>
     </section>
     <aside>
@@ -28,5 +44,6 @@
     <footer>
         Creado por mi el 2011
     </footer>
+    </div>
 </body>
 </html>
