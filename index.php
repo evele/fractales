@@ -30,11 +30,14 @@
     </header>
     <section>
        <article>
-            <h2>Titilo de contenido<h2>
-            <p> Contenido (ademas de imagenes, citas, videos etc.) </p>
+            <h2>Julia - Mandelbrot<h2>
+            <p> Para </p>
             <svg width="100" height="100">
               <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
+            <form>
+              <label>ingrese el valor de C</label>
+            </form>
        </article>
     </section>
     <aside>
@@ -42,7 +45,7 @@
            <p>contenido</p>
     </aside>
     <footer>
-        Creado por mi el 2011
+        un footercin
     </footer>
     </div>
 </body>
