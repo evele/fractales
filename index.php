@@ -49,6 +49,19 @@
               <button action="submit">Calcular</button>
             </form>
             <div class="JM-lienzo">
+              <?php
+              $si = true;
+              for ($i=0; $i < 400 ; $i+1) { 
+                if ($si) {
+                ?>
+                  <svg height="400" width="400">
+                    <line x1="0" y1=<?php echo $i ?> x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:1" />
+                  </svg> 
+                  <?php
+                  $si = !$si;
+                }
+              }
+              ?>
             </div>
        </article>
     </section>
