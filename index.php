@@ -12,8 +12,13 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+
+<link rel="stylesheet" href="css/estilos.css"  >
+
 <!-- Latest compiled and minified JavaScript -->
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </head>
  
 <body>
@@ -31,7 +36,7 @@
     <section>
        <article>
             <h2>Julia - Mandelbrot<h2>
-            <p> Para </p>
+            <p>  </p>
             <svg width="100" height="100">
               <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
@@ -43,6 +48,8 @@
               <label>cy = </label><input type="number" step="0.001"> 
               <button action="submit">Calcular</button>
             </form>
+            <div class="JM-lienzo">
+            </div>
        </article>
     </section>
     <aside>
