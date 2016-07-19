@@ -35,8 +35,13 @@
             <svg width="100" height="100">
               <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
-            <form>
-              <label>ingrese el valor de C</label>
+            <form action="#" method="post">
+              <label>ingrese la cantidad de iteraciones: </label>
+              <input type="number" step="1">
+              <label>ingrese el valor del complejo C (cx,cy) : </label><br>
+              <label>cx = </label><input type="number" step="0.001">
+              <label>cy = </label><input type="number" step="0.001"> 
+              <button action="submit">Calcular</button>
             </form>
        </article>
     </section>
