@@ -3,3 +3,9 @@
 	height: 400px;
 	background-color: #333;
 }
+
+svg {
+	position: absolute;
+	width: 400px;
+	height: 400px;
+}
