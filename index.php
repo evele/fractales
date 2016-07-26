@@ -51,13 +51,16 @@
             <div class="JM-lienzo">
               <svg>
               <?php
+              $iteraciones = 0;
               $i =5;
               $si = true;
-              for ($i=0; $i < 400 ; $i++) { 
+              for ($i=0; $i < 400 ; $i++) {
+                $i++; 
                 for ($y=0; $y < 400 ; $y++) { 
+                $y++;
                   # code...
-            
-              //    if ($si) { 
+                    
+                  if (perteneceMandelbrot($iteraciones,$x,$y)) { 
                 ?>
                       <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
                      <!--
@@ -65,12 +68,12 @@
                      -->
                     <?php
                     $si = !$si;
-                //  } else {
+                  } else {
                 ?>
                    <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->
                 <?php
                     $si = !$si;
-                 // }
+                  }
                 }
               }
               ?>
@@ -87,4 +90,9 @@
     </footer>
     </div>
 </body>
+<?php
+  function perteneceMandelbrot($n,$x,$y){
+    return true;
+  }
+?>
 </html>
