@@ -59,10 +59,10 @@
             
               //    if ($si) { 
                 ?>
-                     <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
-                     -->
+                      <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
+                     <!--
                       <line x1=<?php echo $i ?> y1=<?php echo $y ?> x2=<?php echo $i ?> y2=<?php echo $y+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
-                     
+                     -->
                     <?php
                     $si = !$si;
                 //  } else {
