@@ -53,6 +53,9 @@
               <?php
               $iteraciones = 0;
               $i =5;
+              // esto lo obtenemos de c
+              $cr = 0;
+              $ci = 0;
               $si = true;
               for ($i=0; $i < 400 ; $i++) {
                 $i++; 
@@ -60,12 +63,12 @@
                 $y++;
                   # code...
                     
-                  if (perteneceMandelbrot($iteraciones,$x,$y)) { 
+                  if (perteneceMandelbrot($iteraciones,$i,$y,$cr,$ci)) { 
                 ?>
-                      <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
-                     <!--
-                      <line x1=<?php echo $i ?> y1=<?php echo $y ?> x2=<?php echo $i ?> y2=<?php echo $y+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
+                     <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
                      -->
+                      <line x1=<?php echo $i ?> y1=<?php echo $y ?> x2=<?php echo $i ?> y2=<?php echo $y+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
+                    
                     <?php
                     $si = !$si;
                   } else {
@@ -91,7 +94,11 @@
     </div>
 </body>
 <?php
-  function perteneceMandelbrot($n,$x,$y){
+  function perteneceMandelbrot($n,$x,$y,$cr,$ci){
+    //tengo que iterar n veces siempre y cuando el módulo sea menor que 2 o 4.. no me acuerdo
+    //acá reordeno las coordenadas. el px (0,0) es en realidad el (200,200)
+    $x = $x+200;
+    $y = $y+200;
     return true;
   }
 ?>
