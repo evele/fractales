@@ -59,7 +59,7 @@
               $si = true;
               for ($i=0; $i < 400 ; $i++) {
                 $i++; 
-                for ($y=0; $j < 400 ; $j++) { 
+                for ($j=0; $j < 400 ; $j++) { 
                 $j++;
                   # code...
                     
@@ -102,8 +102,11 @@
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
     //                                                  parte real = x(n+1) = x(n)^2 - y(n)^2 + a
     //                                            parte imaginaria = y(n+1) = 2x(n)yi(n) + bi(n)
+
+    //  if sqrrt(x^2+y^2)>2 then "El punto (a,b) no pertenece al Fractal"
+    
     $x = $x+200;
-    $y = $y+200;
+    $yi = $yi+200;
     return true;
   }
 ?>
