@@ -66,16 +66,16 @@
                   if (perteneceMandelbrot($iteraciones,$i,$j,$cr,$ci)) { 
                 ?>
                      <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
-                     
-                      <line x1=<?php echo $i ?> y1=<?php echo $y ?> x2=<?php echo $i ?> y2=<?php echo $y+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
-                    -->
+                      -->
+                      <line x1=<?php echo $i ?> y1=<?php echo $j ?> x2=<?php echo $i ?> y2=<?php echo $j+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
+                   
                     <?php
-                    $si = !$si;
+                   // $si = !$si;
                   } else {
                 ?>
                    <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->
                 <?php
-                    $si = !$si;
+                   // $si = !$si;
                   }
                 }
               }
@@ -97,17 +97,23 @@
   function perteneceMandelbrot($n,$x,$yi,$a,$bi){
     //tengo que iterar n veces siempre y cuando el módulo sea menor que 2 o 4.. no me acuerdo
     //acá reordeno las coordenadas. el px (0,0) es en realidad el (200,200)
+    //$x = $x+200; esto pensarlo mejor
+    //$yi = $yi+200;
     // z = x + yi
-    // c = b + bi
+    // c = a + bi
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
     //                                                  parte real = x(n+1) = x(n)^2 - y(n)^2 + a
     //                                            parte imaginaria = y(n+1) = 2x(n)yi(n) + bi(n)
-
     //  if sqrrt(x^2+y^2)>2 then "El punto (a,b) no pertenece al Fractal"
-    
-    $x = $x+200;
-    $yi = $yi+200;
-    return true;
+
+    $parteReal = $x * $x - $yi * $yi + $a;
+    $parteImaginaria = 2*$x*$yi + $bi;
+
+    if (sqrt($parteReal*$parteReal+$parteImaginaria*$parteImaginaria)>2){
+        return false;
+    } else {
+        return true;
+    }
   }
 ?>
 </html>
