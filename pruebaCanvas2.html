@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Dibujar en Canvas con HTML5</title>
+    </head>
+
+    <body>
+        <canvas id="lienzo" width="400px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
+    </body>
+</html>
+<script>
+    var x = document.getElementById("lienzo");
+    var c = x.getContext("2d");
+    c.fillStyle = "orange";
+    c.fillRect(10,10,1,1);
+</script>

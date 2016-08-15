@@ -37,9 +37,11 @@
        <article>
             <h2>Julia - Mandelbrot<h2>
             <p>  </p>
+            <!--
             <svg width="100" height="100">
               <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
             </svg>
+          -->
             <form action="#" method="post">
               <label>ingrese la cantidad de iteraciones: </label>
               <input type="number" step="1">
@@ -48,28 +50,39 @@
               <label>cy = </label><input type="number" step="0.001"> 
               <button action="submit">Calcular</button>
             </form>
+            <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
             <div class="JM-lienzo">
-              <svg>
+              <!--<svg> -->
               <?php
-              $iteraciones = 0;
+              $iteraciones = 10;
               $i =5;
               // esto lo obtenemos de c
-              $cr = 0;
+              $cr = -1;
               $ci = 0;
               $si = true;
-              for ($i=0; $i < 400 ; $i++) {
+              for ($i=0; $i < 200 ; $i++) {
                 $i++; 
-                for ($j=0; $j < 400 ; $j++) { 
+                for ($j=0; $j < 200 ; $j++) { 
                 $j++;
                   # code...
                     
                   if (perteneceMandelbrot($iteraciones,$i,$j,$cr,$ci)) { 
                 ?>
                      <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
-                      -->
+                      
                       <line x1=<?php echo $i ?> y1=<?php echo $j ?> x2=<?php echo $i ?> y2=<?php echo $j+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
-                   
+                      pintarPX(<?php echo $i.",".$j ?>);
+                      -->
+                    <script>
+                     
+                      var x = document.getElementById("lienzo");
+                      var c = x.getContext("2d");
+                      c.fillStyle = "black";
+                      c.fillRect(<?php echo $i.",".$j ?>,1,1);
+                      alert(xi);
+                    </script>
                     <?php
+                      
                    // $si = !$si;
                   } else {
                 ?>
@@ -80,7 +93,11 @@
                 }
               }
               ?>
-              </svg>
+              <!--</svg>-->
+              <?php 
+              var_dump($i);
+              var_dump($j);
+              ?>
             </div>
        </article>
     </section>
@@ -92,28 +109,54 @@
         un footercin
     </footer>
     </div>
+    <script>
+      function pintarPX(xi,yi){
+      var x = document.getElementById("lienzo");
+      var c = x.getContext("2d");
+      c.fillStyle = "orange";
+      c.fillRect(xi,yi,1,1);
+      alert(xi);
+      };
+    </script>
 </body>
 <?php
   function perteneceMandelbrot($n,$x,$yi,$a,$bi){
     //tengo que iterar n veces siempre y cuando el módulo sea menor que 2 o 4.. no me acuerdo
     //acá reordeno las coordenadas. el px (0,0) es en realidad el (200,200)
-    //$x = $x+200; esto pensarlo mejor
-    //$yi = $yi+200;
+    $x = $x-100; //esto pensarlo mejor
+    $yi = $yi-100;
+    $x = $x/100;
+    $yi = $yi/100;
     // z = x + yi
     // c = a + bi
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
     //                                                  parte real = x(n+1) = x(n)^2 - y(n)^2 + a
     //                                            parte imaginaria = y(n+1) = 2x(n)yi(n) + bi(n)
     //  if sqrrt(x^2+y^2)>2 then "El punto (a,b) no pertenece al Fractal"
+    
+    $znReal = znreal($x,$yi,$a); 
+    $znImaginaria = znimaginaria($x,$yi,$bi);
+    for ($i = 1; $i < $n; $i++){ 
+        //$parteReal = $x * $x - $yi * $yi + $a;
+        //$parteImaginaria = 2*$x*$yi + $bi;
+        $znReal = znreal($znReal,$znImaginaria,$a);
+        $znImaginaria = znimaginaria($znReal,$znImaginaria,$bi);
+    }
 
-    $parteReal = $x * $x - $yi * $yi + $a;
-    $parteImaginaria = 2*$x*$yi + $bi;
-
-    if (sqrt($parteReal*$parteReal+$parteImaginaria*$parteImaginaria)>2){
+    
+    if (sqrt(($znReal*$znReal)+($znImaginaria*$znImaginaria))>2){
         return false;
     } else {
         return true;
     }
   }
+
+  function znreal($x,$yi,$a){
+        return(($x * $x) - ($yi * $yi) + $a);
+  };
+
+  function znimaginaria($x,$yi,$bi){
+        return((2*$x*$yi) + $bi);
+  };
 ?>
 </html>
