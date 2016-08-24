@@ -55,7 +55,7 @@
               <!--<svg> -->
               <?php
               $iteraciones = 10;
-              $i =5;
+              //$i =5;
               // esto lo obtenemos de c
               $cr = -1;
               $ci = 0;
@@ -127,6 +127,12 @@
     $yi = $yi-100;
     $x = $x/100;
     $yi = $yi/100;
+
+    $a = $x;
+    $bi = $yi;
+
+    $x = 0;
+    $yi = 0;
     // z = x + yi
     // c = a + bi
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
