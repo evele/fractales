@@ -3,21 +3,19 @@
 <html lang="es">
  
 <head>
-<title>Titulo de la web</title>
+<title>Fractales</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
+<!-- On line 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
+-->
+<!-- local -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
 <link rel="stylesheet" href="css/estilos.css"  >
 
-<!-- Latest compiled and minified JavaScript -->
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </head>
  
@@ -25,90 +23,107 @@
     
     <div class="container">
       <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Julia Mandelbrot</a></li>
-      <li role="presentation"><a href="practico-2.php">Pr&aacute;ctico 2</a></li>
-      <li role="presentation"><a href="practico-3.php">Pr&aacute;ctico 3</a></li>
-    </ul>
-    <header>
-       <h1>Mi sitio web</h1>
-       <p>Mi sitio web creado en html5</p>
-    </header>
-    <section>
-       <article>
-            <h2>Julia - Mandelbrot<h2>
-            <p>  </p>
-            <!--
-            <svg width="100" height="100">
-              <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-            </svg>
-          -->
-            <form action="#" method="post">
-              <label>ingrese la cantidad de iteraciones: </label>
-              <input type="number" step="1">
-              <label>ingrese el valor del complejo C (cx,cy) : </label><br>
-              <label>cx = </label><input type="number" step="0.001">
-              <label>cy = </label><input type="number" step="0.001"> 
-              <button action="submit">Calcular</button>
-            </form>
-            <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
-            <div class="JM-lienzo">
-              <!--<svg> -->
-              <?php
-              $iteraciones = 10;
-              $i =5;
-              // esto lo obtenemos de c
-              $cr = -1;
-              $ci = 0;
-              $si = true;
-              for ($i=0; $i < 200 ; $i++) {
-                $i++; 
-                for ($j=0; $j < 200 ; $j++) { 
-                $j++;
-                  # code...
-                    
-                  if (perteneceMandelbrot($iteraciones,$i,$j,$cr,$ci)) { 
-                ?>
-                     <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
-                      
-                      <line x1=<?php echo $i ?> y1=<?php echo $j ?> x2=<?php echo $i ?> y2=<?php echo $j+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
-                      pintarPX(<?php echo $i.",".$j ?>);
-                      -->
-                    <script>
-                     
-                      var x = document.getElementById("lienzo");
-                      var c = x.getContext("2d");
-                      c.fillStyle = "black";
-                      c.fillRect(<?php echo $i.",".$j ?>,1,1);
-                      alert(xi);
-                    </script>
-                    <?php
-                      
-                   // $si = !$si;
-                  } else {
-                ?>
-                   <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->
-                <?php
-                   // $si = !$si;
-                  }
-                }
-              }
-              ?>
-              <!--</svg>-->
-              <?php 
-              var_dump($i);
-              var_dump($j);
-              ?>
-            </div>
-       </article>
-    </section>
-    <aside>
-       <h3>Titulo de contenido</h3>
-           <p>contenido</p>
-    </aside>
-    <footer>
-        un footercin
-    </footer>
+        <li role="presentation" class="active"><a href="#">Julia Mandelbrot</a></li>
+        <li role="presentation"><a href="practico-2.php">Pr&aacute;ctico 2</a></li>
+        <li role="presentation"><a href="practico-3.php">Pr&aacute;ctico 3</a></li>
+      </ul>
     </div>
+    <div class="container">  
+        <header>
+           <h1>Fractales</h1>
+        </header>
+        <section id="julia-mandelbrot">
+           <article>
+              <div class="row">
+                <div class ="col-md-12">
+                   <h2>Julia - Mandelbrot<h2>
+                <!--
+                <svg width="100" height="100">
+                  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+                </svg>
+              -->
+                <form action="#" method="post">
+                  <div class="form-group">
+                    <label>ingrese la cantidad de iteraciones: </label>
+                    <input type="number" step="1">
+                  </div>
+                  <div class="form-group">
+                    <label>ingrese el valor del complejo C (cx,cy) : </label>
+                    <label>cx = </label><input type="number" step="0.001">
+                    <label>cy = </label><input type="number" step="0.001"> 
+                  </div>                  
+                  <button type="button" class="btn btn-primary">Calcular</button>
+                </form>
+                <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
+                <div class="JM-lienzo">
+                  <!--<svg> -->
+                  <?php
+                  $iteraciones = 10;
+                  $i =5;
+                  // esto lo obtenemos de c
+                  $cr = -1;
+                  $ci = 0;
+                  $si = true;
+                  for ($i=0; $i < 200 ; $i++) {
+                    $i++; 
+                    for ($j=0; $j < 200 ; $j++) { 
+                    $j++;
+                      # code...
+                        
+                      if (perteneceMandelbrot($iteraciones,$i,$j,$cr,$ci)) { 
+                    ?>
+                         <!-- <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="green" stroke-width="1" fill="yellow" />  
+                          
+                          <line x1=<?php echo $i ?> y1=<?php echo $j ?> x2=<?php echo $i ?> y2=<?php echo $j+1 ?> style="stroke:rgb(255,0,0);stroke-width:1" />
+                          pintarPX(<?php echo $i.",".$j ?>);
+                          -->
+                        <script>
+                         
+                          var x = document.getElementById("lienzo");
+                          var c = x.getContext("2d");
+                          c.fillStyle = "black";
+                          c.fillRect(<?php echo $i.",".$j ?>,1,1);
+                          alert(xi);
+                        </script>
+                        <?php
+                          
+                       // $si = !$si;
+                      } else {
+                    ?>
+                       <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->
+                    <?php
+                       // $si = !$si;
+                      }
+                    }
+                  }
+                  ?>
+                  <!--</svg>-->
+                  <?php 
+                  var_dump($i);
+                  var_dump($j);
+                  ?>
+                </div>
+                </div>
+              </div>
+               
+           </article>
+        </section>
+        <aside>
+           <h3>Titulo de contenido</h3>
+               <p>contenido</p>
+        </aside>
+        <footer>
+            un footercin
+        </footer>
+      </div>
+    <!-- on line 
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    -->
+    <!-- local -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/fractalesManager.js"></script>
     <script>
       function pintarPX(xi,yi){
       var x = document.getElementById("lienzo");
