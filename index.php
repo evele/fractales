@@ -90,7 +90,7 @@
                        // $si = !$si;
                       } else {
                     ?>
-                       <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->
+                       <!--   <circle cx=<?php echo $i ?> cy=<?php echo $y ?> r="0.5" stroke="red" stroke-width="1" fill="yellow" /> -->      
                     <?php
                        // $si = !$si;
                       }
@@ -142,6 +142,12 @@
     $yi = $yi-100;
     $x = $x/100;
     $yi = $yi/100;
+
+    $a = $x;
+    $bi = $yi;
+
+    $x = 0;
+    $yi = 0;
     // z = x + yi
     // c = a + bi
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
