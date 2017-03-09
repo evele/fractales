@@ -55,13 +55,15 @@
                   <button type="button" class="btn btn-primary">Calcular</button>
                 </form>
                 <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
+
+                 <!--
                 <div class="JM-lienzo">
-                  <!--<svg> -->
+                  <svg> -->
                   <?php
                   $iteraciones = 10;
-                  $i =5;
+                  //$i =5;
                   // esto lo obtenemos de c
-                  $cr = -1;
+                  $cr = -0.5;
                   $ci = 0;
                   $si = true;
                   for ($i=0; $i < 200 ; $i++) {
@@ -83,7 +85,7 @@
                           var c = x.getContext("2d");
                           c.fillStyle = "black";
                           c.fillRect(<?php echo $i.",".$j ?>,1,1);
-                          alert(xi);
+                          //alert(xi);
                         </script>
                         <?php
                           
@@ -97,12 +99,9 @@
                     }
                   }
                   ?>
-                  <!--</svg>-->
-                  <?php 
-                  var_dump($i);
-                  var_dump($j);
-                  ?>
-                </div>
+                  <!--</svg>
+                  </div>
+                  -->
                 </div>
               </div>
                
@@ -124,15 +123,6 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/fractalesManager.js"></script>
-    <script>
-      function pintarPX(xi,yi){
-      var x = document.getElementById("lienzo");
-      var c = x.getContext("2d");
-      c.fillStyle = "orange";
-      c.fillRect(xi,yi,1,1);
-      alert(xi);
-      };
-    </script>
 </body>
 <?php
   function perteneceMandelbrot($n,$x,$yi,$a,$bi){
@@ -143,11 +133,10 @@
     $x = $x/100;
     $yi = $yi/100;
 
+    /*
     $a = $x;
     $bi = $yi;
-
-    $x = 0;
-    $yi = 0;
+    */
     // z = x + yi
     // c = a + bi
     // z(n+1) = z(n)^2+c  -> (x + yi)(n+1) = (x +yi)(n)^2 + a + bi = x^2 + 2xyi - yi^2 + a + bi
@@ -158,22 +147,23 @@
     $znReal = znreal($x,$yi,$a); 
     $znImaginaria = znimaginaria($x,$yi,$bi);
     for ($i = 1; $i < $n; $i++){ 
-        //$parteReal = $x * $x - $yi * $yi + $a;
-        //$parteImaginaria = 2*$x*$yi + $bi;
-        $znReal = znreal($znReal,$znImaginaria,$a);
-        $znImaginaria = znimaginaria($znReal,$znImaginaria,$bi);
+      //$parteReal = $x * $x - $yi * $yi + $a;
+      //$parteImaginaria = 2*$x*$yi + $bi;
+      if (sqrt(($znReal*$znReal)+($znImaginaria*$znImaginaria))>2){
+          return false;
+      } 
+      $znReal = znreal($znReal,$znImaginaria,$a);
+      $znImaginaria = znimaginaria($znReal,$znImaginaria,$bi);
+    
     }
 
+    return true;
+
     
-    if (sqrt(($znReal*$znReal)+($znImaginaria*$znImaginaria))>2){
-        return false;
-    } else {
-        return true;
-    }
   }
 
   function znreal($x,$yi,$a){
-        return(($x * $x) - ($yi * $yi) + $a);
+        return(($x * $x) + ($yi * $yi) + $a);
   };
 
   function znimaginaria($x,$yi,$bi){
