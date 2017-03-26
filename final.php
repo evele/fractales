@@ -23,44 +23,29 @@
     <header>
        <h1>Fractales</h1>
     </header>
-    <section id="julia-mandelbrot">
+    <section id="higuchi">
        <article>
        <h2>Higuchi Fractal Dimension</h2>
+       <div class="row">
+            <div class="col-xs-12">
+                <form id="form-to-upload" method="post" enctype="multipart/form-data">
+    Select image to upload:
+                    <div class="form-group">
+                                            
+                        <input class="" type="file" name="file-to-upload" id="file-to-upload">
+                        <p class="help-block">Upload only CSV files.</p>
+                    </div>
+                    <div>
+                        <label>Seleccionar el K máximo</label>
+                        <input type="text" name="k-maximo" id="k-maximo">
+                    </div>
+                    <div>
+                        <input class="btn btn-success" type="button" value="Calcular Higuchi" id="btn-higuchi" name="btn-higuchi">
+                    </div>
+                </form>
+            </div>           
+       </div>
 <?php
-
-/*Buen día Claudio,
-
-me surgió un trabajito extra que no pude rechazar así que arranqué un toque más tarde de lo ideal.
-
-En definitiva me compliqué con Higuchi, te cuento lo que fuí haciendo y dónde se me complicó.
-
-Parto de una serie de 10 elementos N=10,
-
-                                X(N) =X(1), X(2), X(3), X(4), X(5), X(6), X(7), X(8), X(9), X(10).
-
-                                         = (1294.3, 1294.2, 1294.1, 1293.8, 1293.7, 1293.7, 1293.8, 1293.7, 1293.5, 1293.3)
-
-Tomo por ejemplo un k = 3, por lo que genero 3 nuevas subseries
-
-
-                              Xmk = X 13 = X(1), X(4), X(7), X(10)  = (1294.3, 1293.8, 1293.8, 1293.3)                                       // y acá las primeras dudas.. yo entiendo que las sub series tienen 4,3 y 3 elementos correspondientemente.
-
-                             Xmk = X 23 = X(2), X(5), X(8)              = (1294.2, 1293.7, 1293.7)                                                     // y que se componen como lo indiqué por el elemento X(i) de la serie original.   
-                             Xmk = X 33 = X(3), X(6), X(9)              = (1294.1, 1293.7, 1293.5)
-
-
-Luego trato de calcular las curvas de cada Xmk , Lm (k).  Y acá tengo 2 dudas más. La primera es el tope de la sumatoria. Según la fórmula es desde i=1, hasta (N-m)/k.
-
-                          Para X 13  tenemos (10 - 1) / 3 = 3.
-
-                          Tengo que calcular |X(m+ik) - X(m+(i-1)k)|, en la tercera iteración por ejemplo  |X(m+ik) - X(m+(i-1)k)| = |X(1 + 3*3) - X(1 + (1-3) * 3) | = X(10) - X(7)
-
-
- 
-
-
-*/
-
 
 $datos = array( 1294.3,
                 1294.2,
@@ -170,7 +155,7 @@ function higuchi($serie,$m,$k){
     $longitudLmk = array();
     $N = count($serie);
     for ($i=1;$i<$k+1;$i++){
-        $serieXmk[] = constructXmk($serie,$i,$k,$N);
+     //   $serieXmk[] = constructXmk($serie,$i,$k,$N);
         $longitudesLmk[]= calculoLmk($serie,$i,$k,$N);
     }
     //var_dump($longitudesLmk);
@@ -194,9 +179,11 @@ function constructXmk($serie,$m,$k,$N){
 }
 
 function calculoLmk($serie,$m,$k,$N){
-    $tope = intdiv(($N - $m),$k) ; 
+    //$tope = intdiv(($N - $m),$k) ; php 7
+    $tope = floor(($N - $m)/$k) ; 
     $longitudL = 0;
-    $producto =  ($N - 1) / (intdiv(($N - $m),$k) * $k); 
+    //$producto =  ($N - 1) / (intdiv(($N - $m),$k) * $k); php 7
+    $producto =  ($N - 1) / (floor(($N - $m)/$k) * $k); 
     //var_dump("producto 1: ".$producto);
     //var_dump("</br>");
    
@@ -212,7 +199,7 @@ function calculoLmk($serie,$m,$k,$N){
 }
 
 function dentroSumatoriaA($serie,$m,$k,$i){
-    // le resto 1 a los subíndices para corregir le hecho de que arrancan en 02
+    // le resto 1 a los subíndices para corregir el hecho de que arrancan en 0
     return ($serie[($m+($i*$k))-1] - $serie[($m + ($i-1)*$k)-1]);
 };
 
