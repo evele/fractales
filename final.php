@@ -35,7 +35,11 @@
                         <input class="" type="file" name="file-to-upload" id="file-to-upload">
                         <p class="help-block">Upload only CSV files.</p>
                     </div>
-                    <div>
+                    <div class="form-group">
+                        <label>Seleccionar el K mínimo</label>
+                        <input type="text" name="k-minimo" id="k-minimo"> 
+                    </div>
+                    <div class="form-group">
                         <label>Seleccionar el K máximo</label>
                         <input type="text" name="k-maximo" id="k-maximo">
                     </div>
@@ -46,7 +50,7 @@
             </div>           
        </div>
 <?php
-
+/*
 $datos = array( 1294.3,
                 1294.2,
                 1294.1,
@@ -218,7 +222,7 @@ function calculoLk($serie,$k){
 //var_dump($datos);
 higuchi($datos,1,4);
 
-
+*/
 ?> 
        </article>
     </section>

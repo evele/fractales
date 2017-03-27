@@ -1,5 +1,7 @@
 function FractalesManager(){
 	var self = this;
+	this.k_minimo = 0;
+	this.k_maximo = 0;
 	//this.base_url = ''; 
 
 	this.init = function(){
@@ -25,6 +27,8 @@ function FractalesManager(){
 	this.upload_file = function(){
 		var formData = new FormData();
 		formData.append('file-to-upload', $('#file-to-upload')[0].files[0]);
+		self.k_minimo = $('#k-minimo').val();
+		self.k_maximo = $('#k-maximo').val();
 		//var datatosubmit = {};
 		var ws = {
 			type: 'POST',
@@ -61,7 +65,10 @@ function FractalesManager(){
 	
 
 	this.calcular_higuchi = function(){
-		var datatosubmit = {};
+		var datatosubmit = {
+			k_minimo: self.k_minimo,
+			k_maximo: self.k_maximo
+		};
 		var ws = {
 				type: 'POST',
 				dataType: 'json',

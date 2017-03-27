@@ -45,7 +45,9 @@ class Higuchi {
 	    $tope = floor(($N - $m)/$k) ; 
 	    $longitudL = 0;
 	    //$producto =  ($N - 1) / (intdiv(($N - $m),$k) * $k); php 7
-	    $producto =  ($N - 1) / (floor(($N - $m)/$k) * $k); 
+	    $producto =  ($N - 1) / (floor(($N - $m)/$k) * $k);
+	    //var_dump($k);
+	    //var_dump(expression); 
 	    //var_dump("producto 1: ".$producto);
 	    //var_dump("</br>");
 	   

@@ -35,29 +35,32 @@ function calcularHiguchi($serie,$m,$k){
 	//$result['longitud_LK'] = $longitudLk;
 	//$result['result'] = 'ok';
 	//return $result;
-	return $longitudLk
+	return $longitudLk;
 }
 
 function realizarMediciones($serie,$m,$k_min,$k_max){
 	$mediciones = array();
-	for ($i=$k_max;$i>$k_min;$i--){
-		$mediciones[$i] = calcularHiguchi($serie,)
+	for ($i=$k_max;$i+1>$k_min;$i--){
+		$mediciones[$i] = calcularHiguchi($serie,$m,$i);
 	}
+	return $mediciones;
 }
 
 
 $path = "../uploads/";
 $filename = "sampleToTest.csv";;
 $serie = readCSVFile($path,$filename);
-$k = 2;
+$k_max = $_POST['k_maximo'];
+$k_min = $_POST['k_minimo'];
 $m = 1;
 //var_dump("</br>");
 //var_dump("</br>");
 //var_dump("longitudLK = ".$longitudLk);
-realizarMediciones($serie,$m,$k_min,$k_max);
+$mediciones = realizarMediciones($serie,$m,$k_min,$k_max);
 
-
-$result =  calcularHiguchi($serie,$m,$k);
+$result['result'] = 'ok';
+$result['mediciones'] = $mediciones;
+//$result =  calcularHiguchi($serie,$m,$k);
 
 echo json_encode($result);
 
