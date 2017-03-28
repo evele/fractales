@@ -226,6 +226,26 @@ higuchi($datos,1,4);
 ?> 
        </article>
     </section>
+    <section id="mediciones">
+       <article>
+           <h3>Mediciones</h3>
+           <div class="row">
+                <div class="col-xs-6">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <td>K</td>
+                                <td>L</td>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </section>
   </div>
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

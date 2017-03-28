@@ -91,10 +91,26 @@ function FractalesManager(){
 		}
 		if (response.result != null && response.result =='ok'){
 				console.log("todo ok");
+				self.generarTabla(response.mediciones);
 		} else {
 			//self.show_notification("Hubo un error", "danger");
 			console.log(response.message);
 		}	
+	}
+
+
+	this.generarTabla = function(mediciones){
+		var fila_html = "";
+		$('#table-body').empty();
+		$.each( mediciones, function(paso,medicion) {
+			fila_html = self.generarFila(paso,medicion);
+			$('#table-body').append(fila_html);
+		});
+	}
+
+	this.generarFila = function(paso,medicion){
+		var fila_html = "<tr><td>"+paso+"</td><td>"+medicion+"</td></tr>";
+		return fila_html;
 	}
 
 }
