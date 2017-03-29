@@ -258,13 +258,13 @@ higuchi($datos,1,4);
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/fractalesFinalManager.js"></script>
-  <!--
+  
   <script type="text/javascript">
 
     //var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
     //Width and height
     var w = 400;
-    var h = 50;
+    var h = 500;
     /*
     var svg = d3.select("#grafico-container").append("svg");
     svg.attr("width", w).attr("height", h);
@@ -297,7 +297,7 @@ higuchi($datos,1,4);
        .attr("height", function(d) {
                         return d * 4;
         });
-        */
+        /*
 
        var dataset2 = [
                   [ 5,     20 ],
@@ -309,26 +309,108 @@ higuchi($datos,1,4);
                   [ 475,   44 ],
                   [ 25,    67 ],
                   [ 85,    21 ],
-                  [ 220,   88 ]
+                  [ 220,   88 ],
+                  [600, 150]
               ];
+        */
+
+
+/*
+       //Dynamic, random dataset
+        var dataset2 = [];
+        var numDataPoints = 50;
+        var xRange = Math.random() * 100;
+        var yRange = Math.random() * 100;
+        for (var i = 0; i < numDataPoints; i++) {
+            var newNumber1 = Math.round(Math.random() * xRange);
+            var newNumber2 = Math.round(Math.random() * yRange);
+            dataset2.push([newNumber1, newNumber2]);
+        }
+*/
+
+        var dataset2 = [
+                [10,   2.8648090909091],
+                [11,  2.5691666314928],
+                [12,  2.286328928519],
+                [13,  2.0522861078504],                
+                [14,  1.840472507054],
+                [15,  1.6694331002331],
+                [16,  1.5270422085702],
+                [17,  1.4082115562142],
+                [18,  1.3048279087168],
+                [19,  1.214079776942],
+                [20,  1.1345785714286]
+                ];
+
+        //var padding = 20;
+        var paddingX =20;
+        var paddingY =20;
+
 
                 //Create SVG element
         var svg = d3.select("#grafico-container")
                     .append("svg")
                     .attr("width", w)
                     .attr("height", h);
+
+        
+        var xScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset2, function(d) { return (1/d[0]); })])
+                     .range([paddingX, w - paddingX]);
+        
+/*
+        var xScale = d3.scale.log()
+                     .domain([0.1, 100])
+                     .range([paddingX, w - paddingX]);
+  */                  
+
+        var xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom")
+                  .ticks(10);
+
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (h - paddingX) + ")")  //Assign "axis" class
+            .call(xAxis);
+
+        
+        var yScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset2, function(d) { return (d[1]); })])
+                     .range([h - paddingY, paddingY]);
+
+        
+                     /*
+        var yScale = d3.scale.log()
+                     .domain([0.1, 100])
+                     .range([h - paddingY, paddingY]);
+
+        */
+        //Define Y axis
+        var yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left")
+                  .ticks(5);
+
+    
+            //Create Y axis
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + paddingY + ",0)")
+            .call(yAxis);
     
         svg.selectAll("circle")
                    .data(dataset2)
                    .enter()
                    .append("circle")
                    .attr("cx", function(d) {
-                        return d[0];
+                        return xScale(1/d[0]);
                    })
                    .attr("cy", function(d) {
-                        return d[1];
+                        return yScale(d[1]);
                    })
                    .attr("r", 2);
+
 
 
     /*
@@ -339,6 +421,6 @@ higuchi($datos,1,4);
     .text(function(d) { return d; });
     */
   </script>
-  -->
+  
 </body>
 </html>
