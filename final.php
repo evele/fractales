@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
 <link rel="stylesheet" href="css/estilos.css"  >
+<script type="text/javascript" src="js/d3.v3.js"></script>
 
 
 </head>
@@ -243,6 +244,13 @@ higuchi($datos,1,4);
                         </tbody>
                     </table>
                 </div>
+                <div id="grafico-container" class="col-xs-6">
+                    <!--
+                    <svg id="grafico-svg" width="500" height="50">
+                    </svg>
+                    -->
+
+                </div>
             </div>
         </article>
     </section>
@@ -250,5 +258,87 @@ higuchi($datos,1,4);
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/fractalesFinalManager.js"></script>
+  <!--
+  <script type="text/javascript">
+
+    //var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
+    //Width and height
+    var w = 400;
+    var h = 50;
+    /*
+    var svg = d3.select("#grafico-container").append("svg");
+    svg.attr("width", w).attr("height", h);
+        // Your beautiful D3 code will go here
+        //d3.select("#grafico").append("p").text("New paragraph!");
+    var dataset = [ 5, 10, 25, 20, 15 ];
+    */
+    /*var circles = svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle");
+
+        circles.attr("cx", function(d, i) {
+            return (i * 50) + 25;
+        })
+       .attr("cy", h/2)
+       .attr("r", function(d) {
+            return d;
+       });
+    
+     svg.selectAll("rect")
+       .data(dataset)
+       .enter()
+       .append("rect")
+       .attr("x", function(d, i) {
+            return i * (w / dataset.length)})  //Bar width of 20 plus 1 for padding)
+       .attr("y", function(d) {
+                return h - d; })
+       .attr("width", 20)
+       .attr("height", function(d) {
+                        return d * 4;
+        });
+        */
+
+       var dataset2 = [
+                  [ 5,     20 ],
+                  [ 480,   90 ],
+                  [ 250,   50 ],
+                  [ 100,   33 ],
+                  [ 330,   95 ],
+                  [ 410,   12 ],
+                  [ 475,   44 ],
+                  [ 25,    67 ],
+                  [ 85,    21 ],
+                  [ 220,   88 ]
+              ];
+
+                //Create SVG element
+        var svg = d3.select("#grafico-container")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+    
+        svg.selectAll("circle")
+                   .data(dataset2)
+                   .enter()
+                   .append("circle")
+                   .attr("cx", function(d) {
+                        return d[0];
+                   })
+                   .attr("cy", function(d) {
+                        return d[1];
+                   })
+                   .attr("r", 2);
+
+
+    /*
+    d3.select("#grafico").selectAll("p")
+    .data(dataset)
+    .enter()
+    .append("p")
+    .text(function(d) { return d; });
+    */
+  </script>
+  -->
 </body>
 </html>
