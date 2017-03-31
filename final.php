@@ -28,7 +28,7 @@
        <article>
        <h2>Higuchi Fractal Dimension</h2>
        <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-6">
                 <form id="form-to-upload" method="post" enctype="multipart/form-data">
     Select image to upload:
                     <div class="form-group">
@@ -44,11 +44,18 @@
                         <label>Seleccionar el K máximo</label>
                         <input type="text" name="k-maximo" id="k-maximo">
                     </div>
-                    <div>
+                    <div class="form-group">
                         <input class="btn btn-success" type="button" value="Calcular Higuchi" id="btn-higuchi" name="btn-higuchi">
                     </div>
                 </form>
-            </div>           
+            </div>
+            <div class="col-xs-6">
+                 <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="valor-absoluto" id="valor-absoluto"> Utilizar valor absoluto en X(m+ik) - X(m+(i-1))
+                    </label>
+  </div>
+            </div>         
        </div>
 <?php
 /*
@@ -231,7 +238,7 @@ higuchi($datos,1,4);
        <article>
            <h3>Mediciones</h3>
            <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -243,6 +250,11 @@ higuchi($datos,1,4);
                             
                         </tbody>
                     </table>
+                </div>
+                <div class="col-xs-6">
+                    <div id="pendiente-recta" class="well">
+                            
+                    </div>
                 </div>
                 <div id="grafico-container" class="col-xs-12">
                     <!--
@@ -258,170 +270,6 @@ higuchi($datos,1,4);
   <script src="js/jquery-3.1.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/fractalesFinalManager.js"></script>
-  
-  <script type="text/javascript">
-
-    //var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
-    //Width and height
-    var w = 800;
-    var h = 500;
-    /*
-    var svg = d3.select("#grafico-container").append("svg");
-    svg.attr("width", w).attr("height", h);
-        // Your beautiful D3 code will go here
-        //d3.select("#grafico").append("p").text("New paragraph!");
-    var dataset = [ 5, 10, 25, 20, 15 ];
-    */
-    /*var circles = svg.selectAll("circle")
-        .data(dataset)
-        .enter()
-        .append("circle");
-
-        circles.attr("cx", function(d, i) {
-            return (i * 50) + 25;
-        })
-       .attr("cy", h/2)
-       .attr("r", function(d) {
-            return d;
-       });
-    
-     svg.selectAll("rect")
-       .data(dataset)
-       .enter()
-       .append("rect")
-       .attr("x", function(d, i) {
-            return i * (w / dataset.length)})  //Bar width of 20 plus 1 for padding)
-       .attr("y", function(d) {
-                return h - d; })
-       .attr("width", 20)
-       .attr("height", function(d) {
-                        return d * 4;
-        });
-        /*
-
-       var dataset2 = [
-                  [ 5,     20 ],
-                  [ 480,   90 ],
-                  [ 250,   50 ],
-                  [ 100,   33 ],
-                  [ 330,   95 ],
-                  [ 410,   12 ],
-                  [ 475,   44 ],
-                  [ 25,    67 ],
-                  [ 85,    21 ],
-                  [ 220,   88 ],
-                  [600, 150]
-              ];
-        */
-
-
-/*
-       //Dynamic, random dataset
-        var dataset2 = [];
-        var numDataPoints = 50;
-        var xRange = Math.random() * 100;
-        var yRange = Math.random() * 100;
-        for (var i = 0; i < numDataPoints; i++) {
-            var newNumber1 = Math.round(Math.random() * xRange);
-            var newNumber2 = Math.round(Math.random() * yRange);
-            dataset2.push([newNumber1, newNumber2]);
-        }
-*/
-
-        var dataset2 = [
-                [20,  1.1345785714286],
-                [19,  1.214079776942],
-                [18,  1.3048279087168],
-                [17,  1.4082115562142],
-                [16,  1.5270422085702],
-                [15,  1.6694331002331],
-                [14,  1.840472507054],
-                [13,  2.0522861078504],                
-                [12,  2.286328928519],
-                [11,  2.5691666314928],
-                [10,   2.8648090909091]
-                ];
-
-
-        //var padding = 20;
-        var paddingX =20;
-        var paddingY =20;
-
-
-                //Create SVG element
-        var svg = d3.select("#grafico-container")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-
-        /*
-        var xScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset2, function(d) { return (d[0]); })])
-                     .range([paddingX, w - paddingX]);
-        */
-
-        var xScale = d3.scale.log()
-                     .domain([0.1, d3.max(dataset2, function(d) { return (1/d[0]); })])
-                     .range([paddingX, w - paddingX]);
-                
-
-        var xAxis = d3.svg.axis()
-                  .scale(xScale)
-                  .orient("bottom")
-                  .ticks(10);
-
-        svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + (h - paddingX) + ")")  //Assign "axis" class
-            .call(xAxis);
-
-        /*
-        var yScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset2, function(d) { return (d[1]); })])
-                     .range([h - paddingY, paddingY]);
-        */
-        
-              
-        var yScale = d3.scale.log()
-                     .domain([0.1, d3.max(dataset2, function(d) { return (d[1]); })])
-                     .range([h - paddingY, paddingY]);
-
-        
-        //Define Y axis
-        var yAxis = d3.svg.axis()
-                  .scale(yScale)
-                  .orient("left")
-                  .ticks(5);
-
-    
-            //Create Y axis
-        svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(" + paddingY + ",0)")
-            .call(yAxis);
-    
-        svg.selectAll("circle")
-                   .data(dataset2)
-                   .enter()
-                   .append("circle")
-                   .attr("cx", function(d) {
-                        return xScale(d[0]);
-                   })
-                   .attr("cy", function(d) {
-                        return yScale(d[1]);
-                   })
-                   .attr("r", 2);
-
-
-
-    /*
-    d3.select("#grafico").selectAll("p")
-    .data(dataset)
-    .enter()
-    .append("p")
-    .text(function(d) { return d; });
-    */
-  </script>
-  
+ 
 </body>
 </html>
