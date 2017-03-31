@@ -20,14 +20,15 @@ function readCSVFile($path,$filename){
 	return $arrayOfData;
 }
 
-function calcularHiguchi($serie,$m,$k){
+function calcularHiguchi($serie,$m,$k,$absoluto){
 	$higuchi = new Higuchi($serie);
 
 	$longitudLmk = array();
 	$N = count($serie);
 	for ($i=1;$i<$k+1;$i++){
+	//for ($i=$k;$i>0;$i--){
 	    //$serieXmk[] = constructXmk($serie,$i,$k,$N);
-	    $longitudesLmk[]= $higuchi->calculoLmk($i,$k,$N);
+	    $longitudesLmk[]= $higuchi->calculoLmk($i,$k,$N,$absoluto);
 	}
 	//var_dump($longitudesLmk);
 	$longitudLk = $higuchi->calculoLk($longitudesLmk,$k); 
@@ -38,10 +39,11 @@ function calcularHiguchi($serie,$m,$k){
 	return $longitudLk;
 }
 
-function realizarMediciones($serie,$m,$k_min,$k_max){
+function realizarMediciones($serie,$m,$k_min,$k_max,$absoluto){
 	$mediciones = array();
+	//for ($i=$k_max;$i+1>$k_min;$i--){
 	for ($i=$k_max;$i+1>$k_min;$i--){
-		$mediciones[$i] = calcularHiguchi($serie,$m,$i);
+		$mediciones[$i] = calcularHiguchi($serie,$m,$i,$absoluto);
 	}
 	return $mediciones;
 }
@@ -52,14 +54,17 @@ $filename = "sampleToTest.csv";;
 $serie = readCSVFile($path,$filename);
 $k_max = $_POST['k_maximo'];
 $k_min = $_POST['k_minimo'];
+$absoluto = $_POST['absoluto'];
 $m = 1;
 //var_dump("</br>");
 //var_dump("</br>");
 //var_dump("longitudLK = ".$longitudLk);
-$mediciones = realizarMediciones($serie,$m,$k_min,$k_max);
+$mediciones = realizarMediciones($serie,$m,$k_min,$k_max,$absoluto);
 
 $result['result'] = 'ok';
 $result['mediciones'] = $mediciones;
+$result['k_maximo'] = $k_max;
+$result['k_minimo'] =$k_min;
 //$result =  calcularHiguchi($serie,$m,$k);
 
 echo json_encode($result);

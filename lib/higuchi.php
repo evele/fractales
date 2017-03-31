@@ -40,7 +40,7 @@ class Higuchi {
 	}
 	*/
 
-	public function calculoLmk($m,$k,$N){
+	public function calculoLmk($m,$k,$N,$absoluto){
 	    //$tope = intdiv(($N - $m),$k) ; php 7
 	    $tope = floor(($N - $m)/$k) ; 
 	    $longitudL = 0;
@@ -53,7 +53,7 @@ class Higuchi {
 	   
 	    //var_dump($tope);
 	    for ($i=1;$i<$tope+1;$i++){
-	        $longitudL += $this->dentroSumatoriaA($m,$k,$i); 
+	        $longitudL += $this->dentroSumatoriaA($m,$k,$i,$absoluto); 
 	    }
 	    $longitudL = $longitudL * $producto / $k;
 	    //var_dump("Longitud L(".$m.",".$k.")=");
@@ -62,9 +62,18 @@ class Higuchi {
 	    return($longitudL);
 	}
 
-	public function dentroSumatoriaA($m,$k,$i){
+	public function dentroSumatoriaA($m,$k,$i,$absoluto){
 	    // le resto 1 a los subíndices para corregir le hecho de que arrancan en 02
-	    return ($this->serie[($m+($i*$k))-1] - $this->serie[($m + ($i-1)*$k)-1]);
+	    // acá me olvidé del valor absoluto.. ahora lo hago a ver qué onda.
+	    if ($absoluto==1){
+		    if ($this->serie[($m+($i*$k))-1]>$this->serie[($m + ($i-1)*$k)-1]){
+		    	return ($this->serie[($m+($i*$k))-1] - $this->serie[($m + ($i-1)*$k)-1]);
+		    } else {
+		    	return ($this->serie[($m + ($i-1)*$k)-1] - $this->serie[($m+($i*$k))-1]);
+		    }
+	    } else {
+		    	return ($this->serie[($m+($i*$k))-1] - $this->serie[($m + ($i-1)*$k)-1]);
+	    }
 	}
 
 	public function calculoLk($serie,$k){
