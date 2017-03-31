@@ -91,7 +91,11 @@ function FractalesManager(){
 		}
 		if (response.result != null && response.result =='ok'){
 				console.log("todo ok");
+				//console.log(response.mediciones);
+			//	var mediciones = self.invertir_array(response.mediciones);
+				//console.log(response.mediciones[15]);
 				self.generarTabla(response.mediciones);
+				self.generar_svg(response.mediciones,response.k_maximo,response.k_minimo);
 		} else {
 			//self.show_notification("Hubo un error", "danger");
 			console.log(response.message);
@@ -104,13 +108,139 @@ function FractalesManager(){
 		$('#table-body').empty();
 		$.each( mediciones, function(paso,medicion) {
 			fila_html = self.generarFila(paso,medicion);
-			$('#table-body').append(fila_html);
+			$('#table-body').prepend(fila_html);
 		});
 	}
 
 	this.generarFila = function(paso,medicion){
 		var fila_html = "<tr><td>"+paso+"</td><td>"+medicion+"</td></tr>";
 		return fila_html;
+	}
+
+	this.generar_svg =function(mediciones,k_maximo,k_minimo){
+		$('#grafico-container').empty();
+		var dataset = self.generar_dataset(mediciones,k_maximo,k_minimo);
+		console.log(dataset);
+
+		var dataset2 = [
+                  [ 5,     20 ],
+                  [ 480,   90 ],
+                  [ 250,   50 ],
+                  [ 100,   33 ],
+                  [ 330,   95 ],
+                  [ 410,   12 ],
+                  [ 475,   44 ],
+                  [ 25,    67 ],
+                  [ 85,    21 ],
+                  [ 220,   88 ],
+                  [600, 150]
+              ];
+
+        console.log(dataset2);
+
+		var w = 1000;
+    	var h = 800;
+        //var padding = 20;
+        var paddingX =20;
+        var paddingY =20;
+
+
+                //Create SVG element
+        var svg = d3.select("#grafico-container")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+        /*
+        var xScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset2, function(d) { return (d[0]); })])
+                     .range([paddingX, w - paddingX]);
+       */ 
+
+        var xScale = d3.scale.log()
+                     .domain([d3.min(dataset, function(d) { return (d[0]); }), d3.max(dataset, function(d) { return (d[0]); })])
+                     .range([paddingX, w - paddingX]);
+                    
+
+        var xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom")
+                  .ticks(5);
+
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + (h - paddingX) + ")")  //Assign "axis" class
+            .call(xAxis);
+
+        /*      
+        var yScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset2, function(d) { return (d[1]); })])
+                     .range([h - paddingY, paddingY]);
+        */
+        
+                     
+        var yScale = d3.scale.linear()
+                     .domain([d3.min(dataset, function(d) { return (d[1]); }), d3.max(dataset, function(d) { return (d[1]); })])
+                     .range([h - paddingY, paddingY]);
+
+        
+        //Define Y axis
+        var yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left")
+                  .ticks(5);
+
+    
+            //Create Y axis
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + paddingY + ",0)")
+            .call(yAxis);
+    
+        svg.selectAll("circle")
+                   .data(dataset)
+                   .enter()
+                   .append("circle")
+                   .attr("cx", function(d) {
+                        return xScale(d[0]);
+                   })
+                   .attr("cy", function(d) {
+                        return yScale(d[1]);
+                   })
+                   .attr("r", 2);
+
+
+	}
+
+	this.generar_dataset = function(mediciones,k_maximo,k_minimo){
+		var dataset = new Array();
+        var element =new Array();
+        for (i = k_maximo; i >k_minimo-1 ; i--) {
+            //var element = [Math.log(1/value[0]),Math.log(value[1])]; 
+           // console.log(mediciones);
+            element = [1/Math.log(i),Math.log(mediciones[i])]; 
+            //console.log(element);
+            dataset.push(element);
+        }; 
+        return dataset;
+	}
+
+	this.invertir_array = function(objeto){
+		console.log(objeto);
+		var arreglo = $.makeArray( objeto );
+		var arreglo_invertido = new Array();
+		console.log(arreglo.length); 
+		/*
+		for (i = arreglo.length-1; i >-1 ; i--) {
+			console.log("hola");
+    		arreglo_invertido.push(arreglo[i]);
+		}
+		*/
+		console.log("hola");
+		var arreglo_invertido = arreglo.reverse();
+		console.log(arreglo_invertido);
+		return arreglo_invertido;
+
 	}
 
 }

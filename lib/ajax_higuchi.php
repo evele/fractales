@@ -26,6 +26,7 @@ function calcularHiguchi($serie,$m,$k){
 	$longitudLmk = array();
 	$N = count($serie);
 	for ($i=1;$i<$k+1;$i++){
+	//for ($i=$k;$i>0;$i--){
 	    //$serieXmk[] = constructXmk($serie,$i,$k,$N);
 	    $longitudesLmk[]= $higuchi->calculoLmk($i,$k,$N);
 	}
@@ -40,6 +41,7 @@ function calcularHiguchi($serie,$m,$k){
 
 function realizarMediciones($serie,$m,$k_min,$k_max){
 	$mediciones = array();
+	//for ($i=$k_max;$i+1>$k_min;$i--){
 	for ($i=$k_max;$i+1>$k_min;$i--){
 		$mediciones[$i] = calcularHiguchi($serie,$m,$i);
 	}
@@ -60,6 +62,8 @@ $mediciones = realizarMediciones($serie,$m,$k_min,$k_max);
 
 $result['result'] = 'ok';
 $result['mediciones'] = $mediciones;
+$result['k_maximo'] = $k_max;
+$result['k_minimo'] =$k_min;
 //$result =  calcularHiguchi($serie,$m,$k);
 
 echo json_encode($result);
