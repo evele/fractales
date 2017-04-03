@@ -49,13 +49,15 @@
                     </div>
                 </form>
             </div>
+            <!--
             <div class="col-xs-6">
                  <div class="checkbox">
                     <label>
                         <input type="checkbox" name="valor-absoluto" id="valor-absoluto"> Utilizar valor absoluto en X(m+ik) - X(m+(i-1))
                     </label>
-  </div>
-            </div>         
+                 </div>
+            </div>
+            -->         
        </div>
 <?php
 /*

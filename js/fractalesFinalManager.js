@@ -2,7 +2,7 @@ function FractalesManager(){
 	var self = this;
 	this.k_minimo = 0;
 	this.k_maximo = 0;
-	this.absoluto = 0;
+	this.absoluto = 1;
 	//this.base_url = ''; 
 
 	this.init = function(){
@@ -30,11 +30,13 @@ function FractalesManager(){
 		formData.append('file-to-upload', $('#file-to-upload')[0].files[0]);
 		self.k_minimo = $('#k-minimo').val();
 		self.k_maximo = $('#k-maximo').val();
+		/*
 		if ($('#valor-absoluto').prop( "checked" )){
 			self.absoluto = 1;
 		} else {
 			self.absoluto = 0;
 		}
+		*/
 		//var datatosubmit = {};
 		var ws = {
 			type: 'POST',
@@ -165,8 +167,10 @@ function FractalesManager(){
                      .range([paddingX, w - paddingX]);
        */ 
 
-        var xScale = d3.scale.log()
+        //var xScale = d3.scale.log()
+        var xScale = d3.scale.linear()
                      .domain([d3.min(dataset, function(d) { return (d[0]); }), d3.max(dataset, function(d) { return (d[0]); })])
+                     //.domain([-5, 0])
                      .range([paddingX, w - paddingX]);
                     
 
@@ -187,15 +191,15 @@ function FractalesManager(){
         */
         
         if (self.absoluto==1){
-	        var yScale = d3.scale.log()
-	                     .domain([d3.min(dataset, function(d) { return (d[1]); }), d3.max(dataset, function(d) { return (d[1]); })])
-	                     .range([h - paddingY, paddingY]);        	
+        var yScale = d3.scale.log()
+                     .domain([d3.min(dataset, function(d) { return (d[1]); }), d3.max(dataset, function(d) { return (d[1]); })])
+                     .range([h - paddingY, paddingY]);        	
+       	
         } else {
 	        var yScale = d3.scale.linear()
 	                     .domain([d3.min(dataset, function(d) { return (d[1]); }), d3.max(dataset, function(d) { return (d[1]); })])
 	                     .range([h - paddingY, paddingY]);
         }
-
         
         //Define Y axis
         var yAxis = d3.svg.axis()
@@ -233,7 +237,7 @@ function FractalesManager(){
 		var sumXY = 0;
 		var count = 0;
 		$.each( dataset, function( key, value ) {
-  			console.log(value);
+  			//console.log(value);
   			sumX += value[0];
   			sumY += value[1];
   			sumXX += value[0]*value[0];
@@ -252,8 +256,8 @@ function FractalesManager(){
         for (i = k_maximo; i >k_minimo-1 ; i--) {
             //var element = [Math.log(1/value[0]),Math.log(value[1])]; 
            // console.log(mediciones);
-            element = [1/Math.log(i),Math.log(mediciones[i])]; 
-            //console.log(element);
+            element = [Math.log(1/i),Math.log(mediciones[i])]; 
+            console.log(element);
             dataset.push(element);
         }; 
         return dataset;
