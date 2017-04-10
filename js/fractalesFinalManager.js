@@ -13,6 +13,7 @@ function FractalesManager(){
 	this.bind_handler =  function(){
 		$(document).on('click','#btn-higuchi',self.higuchi);
 		
+		
 	}
 
 	this.higuchi = function(){
@@ -226,6 +227,12 @@ function FractalesManager(){
                    })
                    .attr("r", 2);
 
+        svg.append("line").attr("x1", 5)
+                          .attr("y1", 5)
+                         .attr("x2", 50)
+                         .attr("y2", 50)
+                          .attr("stroke-width", 1)
+                         .attr("stroke", "red");
 
 	}
 
@@ -247,6 +254,11 @@ function FractalesManager(){
 		var pendiente = (sumXY-((sumX*sumY)/count))/(sumXX-((sumX*sumX)/count)); 
 		$('#pendiente-recta').text('La pendiente de la recta es: '+pendiente);
 		console.log('la pendiente de la recta es: '+pendiente);
+		var mediaX = sumX / count;
+		var mediaY = sumY / count;
+
+		var inteseccionY = mediaY - (pendiente*mediaX);
+		console.log('la interseccion en Y es: '+inteseccionY);
 
 	}
 

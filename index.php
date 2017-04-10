@@ -35,40 +35,47 @@
         <section id="julia-mandelbrot">
            <article>
               <div class="row">
-                <div class ="col-md-12">
-                   <h2>Julia - Mandelbrot<h2>
+                <div class ="col-xs-12">
+                   <h2>Julia - Mandelbrot</h2>
                 <!--
                 <svg width="100" height="100">
                   <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
                 </svg>
               -->
-                <form action="#" method="post">
                   <div class="form-group">
-                    <label>ingrese la cantidad de iteraciones: </label>
-                    <input type="number" step="1">
+                    <label class="col-xs-4">ingrese la cantidad de iteraciones: </label>
+                    <label> n = </label><input id="JM-iteraciones" type="number" step="1">
                   </div>
                   <div class="form-group">
-                    <label>ingrese el valor del complejo C (cx,cy) : </label>
-                    <label>cx = </label><input type="number" step="0.001">
-                    <label>cy = </label><input type="number" step="0.001"> 
+                    <label class="col-xs-4">ingrese el valor del complejo C (cx,cy) : </label>
+                    <label>cx = </label><input id="JM-cx" type="number" step="0.001">
+                    <label>cy = </label><input id="JM-cy" type="number" step="0.001"> 
                   </div>                  
-                  <button type="button" class="btn btn-primary">Calcular</button>
-                </form>
-                <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
-
+                  <button id="JM-btn-calcular" type="button" class="btn btn-primary">Calcular</button>
+                  <hr>
+                 </div>
+              </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div id="JM-lienzo">
+                    
+                    </div>
+                  </div>
+                </div>
                  <!--
-                <div class="JM-lienzo">
+                <canvas id="lienzo" width="200px" height="200px" style="border: 1px solid #000;">Tu navegador no soporta la API de Canvas</canvas>
                   <svg> -->
                   <?php
+                  /*
                   $iteraciones = 10;
                   //$i =5;
                   // esto lo obtenemos de c
-                  $cr = -0.5;
-                  $ci = 0;
+                  $cr = -0.7;
+                  $ci = 0.27015;
                   $si = true;
-                  for ($i=0; $i < 200 ; $i++) {
+                  for ($i=0; $i < 400 ; $i++) {
                     $i++; 
-                    for ($j=0; $j < 200 ; $j++) { 
+                    for ($j=0; $j < 400 ; $j++) { 
                     $j++;
                       # code...
                         
@@ -98,13 +105,10 @@
                       }
                     }
                   }
-                  ?>
+                  */?>
                   <!--</svg>
                   </div>
                   -->
-                </div>
-              </div>
-               
            </article>
         </section>
         <aside>
@@ -120,6 +124,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     -->
     <!-- local -->
+
+    <script type="text/javascript" src="js/d3.v3.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/fractalesManager.js"></script>
@@ -128,8 +134,8 @@
   function perteneceMandelbrot($n,$x,$yi,$a,$bi){
     //tengo que iterar n veces siempre y cuando el módulo sea menor que 2 o 4.. no me acuerdo
     //acá reordeno las coordenadas. el px (0,0) es en realidad el (200,200)
-    $x = $x-100; //esto pensarlo mejor
-    $yi = $yi-100;
+    $x = $x-200; //esto pensarlo mejor
+    $yi = $yi-200;
     $x = $x/100;
     $yi = $yi/100;
 
