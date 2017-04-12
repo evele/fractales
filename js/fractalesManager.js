@@ -2,6 +2,9 @@ function FractalesManager(){
 	var self = this;
 	this.canvas ="";
 	this.color = d3.scale.category20c();
+	this.escala = 1;
+	this.offsetX = 0;
+	this.offsetY =0;
 
 	this.init = function(){
 		console.log('funciona');
@@ -11,6 +14,28 @@ function FractalesManager(){
 
 	this.bind_handler =  function(){
 		$(document).on('click','#JM-btn-calcular',self.calcular_julia_mandelbrot);
+		//$('#JM-lienzo').bind('mousewheel',self.zoom);
+		$(document).on('mousewheel','#JM-lienzo',self.zoom);
+	}
+
+	this.zoom =function(event){
+		var parentOffset = $(this).parent().offset(); 
+	   //or $(this).offset(); if you really just want the current element's offset
+	   self.offsetX = event.pageX - parentOffset.left;
+	   self.offsetY = event.pageY - parentOffset.top;
+	    if(event.originalEvent.wheelDelta /120 > 0) {
+	        //in
+	        self.escala = self.escala *1.1;
+	    } else {
+	    	//out
+	    	if (self.escala != 1){
+	        	self.escala = self.escala /1.1;
+	    	}
+	    }
+	    console.log(self.escala);
+	    console.log(self.offsetX);
+	    console.log(self.offsetY);
+	    self.calcular_julia_mandelbrot();
 	}
 
 	this.calcular_julia_mandelbrot = function(){
@@ -22,12 +47,7 @@ function FractalesManager(){
 
 		//recorrer el lienzo punto por punto y definir dependiendo de
 		// si pertenece o no a JM pintarlo.
-		//rango del plano (-2,2) 400px x 400px. 1px, = 0.01
-			var x1 = -1.7; 
-    		var	y1 = -1;
-    		var	x2 = 1;
-    		var	y2 = 1; 
-		//self.mandelbrot(i,j,cx,cy,iteraciones);
+		//rango del plano (-2,2) 800px x 800px. 1px, = 0.005
 		console.log('calculando JM');
 		//self.mandelbrot(x1,y1,x2,y2,iteraciones);
 		
@@ -92,54 +112,16 @@ function FractalesManager(){
     	return true;
     }
 
-    this.zoom = function(){
-    	console.log("zoooom");
-    }
-
-    this.mandelbrot = function(x1,y1,x2,y2,iterations) {
-
-				var p0, q0, z, esc, _x, _y;				
-				var width = 400;
-				var height = 400;
-				var step = 1;
-
-				var dp = (x2 - x1)/(width - 1);
-				var dq = (y2 - y1)/(height - 1);
-
-				for (var i = 0; i < width; i += step) {
-					for (var j = 0; j < height; j += step) {
-						p0 = x1 + i * dp;
-						q0 = y1 + j * dq;
-						z = { re: p0, im: q0 };
-						c = z;
-						esc = 0;
-
-						for (var k = 1; k < iterations; k++) {
-							_x = z.re * z.re - z.im * z.im + c.re;
-							_y = 2 * z.re * z.im + c.im;
-							z = { re: _x, im: _y };
-							esc++;
-							if (Math.sqrt(Math.pow(z.re, 2) + Math.pow(z.im, 2)) > 2) {
-								self.canvas.fillStyle = self.color(esc);
-
-								self.canvas.fillRect(i, j, step, step);
-								break;
-							}
-						}
-					}
-				}
-			}
-
     this.perteneceMandelbrot = function(n,x,yi,a,bi){
 	    //tengo que iterar n veces siempre y cuando el módulo sea menor que 2 o 4.. no me acuerdo
-	    //acá reordeno las coordenadas. el px (0,0) es en realidad el (200,200)
+	    //acá reordeno las coordenadas. el px (0,0) es en realidad el (400,400)
 	    var xpx = x;
 	    var ypx = yi;
 
-	    x = x-400; //esto pensarlo mejor
-	    yi =400-yi;
-	    x = x/200;
-	    yi = yi/200;
+	    x = x-400 + self.offsetX; //esto pensarlo mejor
+	    yi =400-(yi + self.offsetY);
+	    x = x/(200 * self.escala);
+	    yi = yi/(200 * self.escala);
 
 	    /*
 	    $a = $x;

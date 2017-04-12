@@ -66,6 +66,7 @@
     <script type="text/javascript" src="js/d3.v3.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="js/fractalesManager.js"></script>
 </body>
 </html>
